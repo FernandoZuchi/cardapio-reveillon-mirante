@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Réveillon 2027 • Casa Mirante</title>
+    <meta name="description" content="Cardápio Oficial do Réveillon 2027 na Casa Mirante. Experiência Gastronômica & Open Bar.">
+
+    <!-- Favicon e Ícone para Aba do Navegador / Tela Inicial (funciona inclusive offline/file://) -->
+    <link id="dynamic-favicon" rel="icon" type="image/jpeg" href="logo-mirante.jpeg">
+    <link id="dynamic-apple-icon" rel="apple-touch-icon" href="logo-mirante.jpeg">
+
+    <!-- Open Graph / Meta Tags para Preview elegante no WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cardápio Réveillon 2027 • Casa Mirante">
+    <meta property="og:description" content="31/12/26 • Das 22h às 03h. Confira o menu completo da nossa virada: Mesa de Frios, Entradas, Massas, Ceia Completa, Sobremesas e Open Bar.">
+    <meta property="og:image" content="logo-mirante.jpeg">
+
+    <!-- Google Fonts: Cormorant Garamond + Fraunces (Rústico-Chique) & Plus Jakarta Sans (Leitura limpa) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Paleta Oficial Casa Mirante + Detalhes Dourados de Ano Novo -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mirante: {
+                            espresso: '#362E2A',    // Marrom rústico principal da marca
+                            deep: '#26201D',        // Marrom profundo para profundidade e contrastes
+                            paper: '#F7F4EE',       // Off-white quente / papel artesanal
+                            linen: '#EFECE4',       // Tom linho / pergaminho suave
+                            gold: '#C89B54',        // Dourado champanhe sofisticado
+                            goldLight: '#DFBE82',   // Dourado champanhe luminoso / brilhos
+                            bronze: '#8C6239',      // Bronze artesanal para detalhes e divisórias
+                            muted: '#665B54',       // Marrom acinzentado elegante para descrições
+                        }
+                    },
+                    fontFamily: {
+                        display: ['"Fraunces"', 'Georgia', 'serif'],
+                        editorial: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Textura sutil de papel/linho artesanal via SVG noise em baixíssima opacidade */
+        .paper-texture {
+            background-color: #F7F4EE;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.038'/%3E%3C/svg%3E");
+        }
+
+        /* Oculta scrollbar nas abas horizontais mantendo toque fluido */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Wrapper imediato da logo com fundo #362E2A isolado para blend perfeito mesmo em file:// */
+        .mirante-logo-wrapper {
+            background-color: #362E2A;
+            isolation: isolate;
+        }
+
+        /* Integração da logo oficial (traço preto em fundo branco -> off-white transparente sobre #362E2A) */
+        .mirante-logo-blend {
+            filter: invert(1) sepia(0.14) brightness(1.06);
+            mix-blend-mode: screen;
+        }
+
+        /* Estado aplicado automaticamente após o Canvas gerar PNG transparente em HTTP/HTTPS */
+        .mirante-logo-clean {
+            filter: none;
+            mix-blend-mode: normal;
+        }
+
+        /* Moldura dupla rústico-artesanal nos cards */
+        .rustic-card {
+            position: relative;
+            border: 1px solid rgba(140, 98, 57, 0.22);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                        box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.35s ease;
+        }
+        .rustic-card::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border: 1px solid rgba(200, 155, 84, 0.22);
+            border-radius: calc(1rem - 4px);
+            pointer-events: none;
+            transition: border-color 0.35s ease;
+        }
+        .rustic-card:hover,
+        .rustic-card:active {
+            transform: translateY(-2px);
+            border-color: rgba(200, 155, 84, 0.55);
+            box-shadow: 0 12px 28px -8px rgba(38, 32, 29, 0.10), 0 0 0 1px rgba(223, 190, 130, 0.2);
+        }
+        .rustic-card:hover::after,
+        .rustic-card:active::after {
+            border-color: rgba(200, 155, 84, 0.48);
+        }
+
+        /* Moldura dupla dourada especial para o card escuro Open Bar */
+        .openbar-card {
+            position: relative;
+            border: 1px solid rgba(200, 155, 84, 0.45);
+            box-shadow: 0 18px 38px -12px rgba(38, 32, 29, 0.35);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+        }
+        .openbar-card::after {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border: 1px solid rgba(223, 190, 130, 0.35);
+            border-radius: calc(1rem - 5px);
+            pointer-events: none;
+        }
+        .openbar-card:hover,
+        .openbar-card:active {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 44px -10px rgba(38, 32, 29, 0.45), 0 0 24px rgba(200, 155, 84, 0.14);
+        }
+
+        /* ==================== ANIMAÇÃO 1: PARTÍCULAS DOURADAS / BOLHAS DE ESPUMANTE ==================== */
+        @keyframes champagneRise {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.6);
+                opacity: 0;
+            }
+            18% {
+                opacity: var(--spark-opacity, 0.65);
+            }
+            50% {
+                transform: translateY(-130px) translateX(var(--drift, 8px)) scale(1);
+            }
+            85% {
+                opacity: var(--spark-opacity, 0.5);
+            }
+            100% {
+                transform: translateY(-270px) translateX(calc(var(--drift, 8px) * -0.6)) scale(0.4);
+                opacity: 0;
+            }
+        }
+
+        .sparkle-bubble {
+            position: absolute;
+            bottom: -10px;
+            border-radius: 9999px;
+            background: radial-gradient(circle at 30% 30%, #FFF7E6, #DFBE82 55%, #C89B54 100%);
+            box-shadow: 0 0 6px rgba(223, 190, 130, 0.55);
+            pointer-events: none;
+            will-change: transform, opacity;
+            animation: champagneRise var(--duration, 7s) ease-in-out var(--delay, 0s) infinite;
+        }
+
+        /* ==================== ANIMAÇÃO 2: ENTRADA COREOGRAFADA DO TOPO ==================== */
+        @keyframes heroReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(14px) scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes lineExpand {
+            0% {
+                transform: scaleX(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+        }
+
+        .hero-step-1 {
+            opacity: 0;
+            animation: heroReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.08s forwards;
+        }
+        .hero-step-2 {
+            opacity: 0;
+            animation: heroReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.26s forwards;
+        }
+        .hero-divider {
+            transform-origin: center;
+            transform: scaleX(0);
+            animation: lineExpand 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.42s forwards;
+        }
+        .hero-step-3 {
+            opacity: 0;
+            animation: heroReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.52s forwards;
+        }
+        .hero-step-4 {
+            opacity: 0;
+            animation: heroReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.68s forwards;
+        }
+
+        /* ==================== ANIMAÇÃO 3: REVELAÇÃO AO ROLAR (SCROLL REVEAL) ==================== */
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Linha divisória dourada que se desenha quando a seção entra na tela */
+        .gold-rule {
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.18s;
+        }
+        .reveal-section.is-visible .gold-rule {
+            transform: scaleX(1);
+        }
+
+        /* Compensação de rolagem para a barra sticky */
+        .menu-anchor {
+            scroll-margin-top: 64px;
+        }
+
+        /* Respeito a usuários com redução de movimento */
+        @media (prefers-reduced-motion: reduce) {
+            .sparkle-bubble,
+            .hero-step-1,
+            .hero-step-2,
+            .hero-step-3,
+            .hero-step-4,
+            .hero-divider {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .reveal-section {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            .gold-rule {
+                transform: scaleX(1) !important;
+            }
+        }
+    </style>
+</head>
+<body class="paper-texture text-mirante-deep font-sans antialiased selection:bg-mirante-gold selection:text-mirante-deep">
+
+    <!-- ==================== CABEÇALHO RÚSTICO-CHIQUE (#362E2A) ==================== -->
+    <header class="relative bg-mirante-espresso text-mirante-paper overflow-hidden border-b border-mirante-gold/30">
+        <!-- Aura dourada concentrada na base/bordas para manter o topo da logo em #362E2A puro -->
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(200,155,84,0.18)_0%,_rgba(54,46,42,0)_62%)] pointer-events-none"></div>
+
+        <!-- Partículas douradas sutis (bolhas de espumante / micro-faíscas de Réveillon) -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+            <span class="sparkle-bubble" style="left: 8%; width: 3px; height: 3px; --duration: 7.5s; --delay: 0.2s; --drift: 10px; --spark-opacity: 0.55;"></span>
+            <span class="sparkle-bubble" style="left: 19%; width: 2px; height: 2px; --duration: 6.2s; --delay: 1.8s; --drift: -8px; --spark-opacity: 0.45;"></span>
+            <span class="sparkle-bubble" style="left: 31%; width: 4px; height: 4px; --duration: 8.4s; --delay: 0.9s; --drift: 12px; --spark-opacity: 0.65;"></span>
+            <span class="sparkle-bubble" style="left: 44%; width: 2.5px; height: 2.5px; --duration: 6.8s; --delay: 3.1s; --drift: -9px; --spark-opacity: 0.5;"></span>
+            <span class="sparkle-bubble" style="left: 58%; width: 3.5px; height: 3.5px; --duration: 7.9s; --delay: 1.1s; --drift: 9px; --spark-opacity: 0.6;"></span>
+            <span class="sparkle-bubble" style="left: 71%; width: 2px; height: 2px; --duration: 6.4s; --delay: 2.4s; --drift: -11px; --spark-opacity: 0.48;"></span>
+            <span class="sparkle-bubble" style="left: 83%; width: 3px; height: 3px; --duration: 8.1s; --delay: 0.5s; --drift: 7px; --spark-opacity: 0.62;"></span>
+            <span class="sparkle-bubble" style="left: 92%; width: 2.5px; height: 2.5px; --duration: 7.2s; --delay: 2.9s; --drift: -7px; --spark-opacity: 0.5;"></span>
+        </div>
+
+        <!-- Container sem transform/opacity/z-index intermediário para não quebrar o mix-blend-mode da logo -->
+        <div class="max-w-xl mx-auto px-5 pt-9 pb-11 text-center">
+
+            <!-- Logo Oficial: Wrapper imediato com background-color: #362E2A e isolation: isolate -->
+            <div class="mb-5 flex justify-center">
+                <div class="mirante-logo-wrapper inline-block rounded-lg" style="background-color: #362E2A; isolation: isolate;">
+                    <img
+                        id="mirante-logo-img"
+                        src="logo-mirante.jpeg"
+                        alt="Casa Mirante"
+                        class="mirante-logo-blend w-40 sm:w-44 h-auto mx-auto object-contain select-none block"
+                        onerror="this.style.display='none'; document.getElementById('logo-fallback').classList.remove('hidden');"
+                    />
+                </div>
+
+                <!-- Fallback Monograma Tipográfico Artesanal caso a imagem não seja encontrada -->
+                <div id="logo-fallback" class="hidden px-6 py-4 rounded-xl border border-mirante-gold/35 bg-mirante-deep/50 inline-flex flex-col items-center">
+                    <span class="text-[10px] tracking-[0.35em] text-mirante-goldLight mb-1">✦ ✦ ✦</span>
+                    <span class="font-display text-3xl font-bold tracking-widest text-mirante-paper leading-none">CM</span>
+                    <span class="h-px w-10 bg-mirante-gold/50 my-1.5"></span>
+                    <span class="font-editorial text-xs font-semibold tracking-[0.28em] uppercase text-mirante-goldLight">Casa Mirante</span>
+                </div>
+            </div>
+
+            <!-- Selo Réveillon 2027 -->
+            <div class="hero-step-1">
+                <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full border border-mirante-gold/40 bg-mirante-deep/55 text-mirante-goldLight text-[11px] font-semibold tracking-[0.24em] uppercase shadow-sm">
+                    <span class="text-mirante-gold">✦</span>
+                    <span>Réveillon 2027</span>
+                    <span class="text-mirante-gold">✦</span>
+                </div>
+            </div>
+
+            <!-- Divisor Dourado Animado -->
+            <div class="hero-divider flex items-center justify-center gap-3 my-4">
+                <span class="h-px w-14 bg-gradient-to-r from-transparent via-mirante-gold/70 to-mirante-gold"></span>
+                <span class="text-mirante-goldLight text-xs">✦</span>
+                <span class="h-px w-14 bg-gradient-to-l from-transparent via-mirante-gold/70 to-mirante-gold"></span>
+            </div>
+
+            <!-- Título Editorial & Data/Horário -->
+            <div class="hero-step-2">
+                <h1 class="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-mirante-paper leading-tight">
+                    Cardápio Oficial
+                </h1>
+                <p class="font-editorial italic text-lg sm:text-xl text-mirante-goldLight mt-1 tracking-wide">
+                    Gastronomia Artesanal &amp; Open Bar
+                </p>
+
+                <div class="mt-3.5 inline-flex items-center justify-center gap-2 text-xs sm:text-sm text-mirante-paper/90 font-medium tracking-wide">
+                    <i data-lucide="calendar-clock" class="w-4 h-4 text-mirante-gold shrink-0"></i>
+                    <span>31/12/26 • Das 22h às 03h (01/01/27)</span>
+                </div>
+            </div>
+
+            <!-- Atrações & Estrutura -->
+            <div class="hero-step-3 mt-5 flex flex-wrap items-center justify-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-mirante-deep/65 border border-mirante-gold/25 text-xs text-mirante-paper/90">
+                    <i data-lucide="music" class="w-3.5 h-3.5 text-mirante-gold"></i>
+                    <span>Banda BASF + DJ</span>
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-mirante-deep/65 border border-mirante-gold/25 text-xs text-mirante-paper/90">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-mirante-gold"></i>
+                    <span>Espaço Kids • Recreadoras do Clube da Tia Lú</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Filete inferior metálico dourado -->
+        <div class="h-[2px] w-full bg-gradient-to-r from-mirante-espresso via-mirante-gold to-mirante-espresso"></div>
+    </header>
+
+    <!-- ==================== NAVEGAÇÃO FIXA (STICKY) COM ABAS DESLIZÁVEIS ==================== -->
+    <nav aria-label="Navegação por Categorias" class="sticky top-0 z-30 bg-mirante-paper/92 backdrop-blur-md border-b border-mirante-bronze/20 shadow-[0_4px_16px_-6px_rgba(38,32,29,0.08)]">
+        <div class="max-w-xl mx-auto px-3 py-2.5">
+            <div id="sticky-tabs" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth">
+                <a href="#frios" data-target="frios" class="nav-pill active shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 bg-mirante-espresso text-mirante-goldLight border border-mirante-gold/40 shadow-sm">
+                    Frios
+                </a>
+                <a href="#entradas" data-target="entradas" class="nav-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-300 bg-mirante-linen/80 text-mirante-espresso border border-transparent hover:border-mirante-bronze/25">
+                    Entradas
+                </a>
+                <a href="#massas" data-target="massas" class="nav-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-300 bg-mirante-linen/80 text-mirante-espresso border border-transparent hover:border-mirante-bronze/25">
+                    Massas
+                </a>
+                <a href="#ceia" data-target="ceia" class="nav-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-300 bg-mirante-linen/80 text-mirante-espresso border border-transparent hover:border-mirante-bronze/25">
+                    Ceia
+                </a>
+                <a href="#kids" data-target="kids" class="nav-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-300 bg-mirante-linen/80 text-mirante-espresso border border-transparent hover:border-mirante-bronze/25">
+                    Kids
+                </a>
+                <a href="#sobremesas" data-target="sobremesas" class="nav-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-300 bg-mirante-linen/80 text-mirante-espresso border border-transparent hover:border-mirante-bronze/25">
+                    Sobremesas
+                </a>
+                <a href="#openbar" data-target="openbar" class="nav-pill shrink-0 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-300 bg-mirante-linen/80 text-mirante-espresso border border-transparent hover:border-mirante-bronze/25">
+                    Open Bar
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== CONTEÚDO EDITORIAL DO CARDÁPIO ==================== -->
+    <main class="max-w-xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+
+        <!-- 1. MESA DE FRIOS -->
+        <section id="frios" class="menu-anchor reveal-section rustic-card bg-white/85 backdrop-blur-[2px] rounded-2xl p-6 sm:p-7 shadow-[0_6px_24px_-8px_rgba(54,46,42,0.08)]">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <div class="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-mirante-bronze">
+                        <span>✦</span>
+                        <span>01 • Recepção</span>
+                    </div>
+                    <h2 class="font-display text-2xl sm:text-[26px] font-semibold text-mirante-espresso mt-0.5 leading-snug">
+                        Mesa de Frios
+                    </h2>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-mirante-linen border border-mirante-gold/30 text-mirante-bronze flex items-center justify-center shrink-0">
+                    <i data-lucide="utensils" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <!-- Linha dourada animada -->
+            <div class="gold-rule h-px w-full bg-gradient-to-r from-mirante-gold/70 via-mirante-bronze/30 to-transparent my-4"></div>
+
+            <div class="space-y-4 text-sm">
+                <div>
+                    <h3 class="font-editorial text-base font-bold uppercase tracking-[0.14em] text-mirante-espresso flex items-center gap-1.5">
+                        <span class="text-mirante-gold text-xs">✦</span>
+                        <span>Queijos</span>
+                    </h3>
+                    <p class="text-mirante-muted leading-relaxed mt-1">
+                        Parmesão, Mussarela, Provolone e Gorgonzola.
+                    </p>
+                </div>
+
+                <div class="pt-3.5 border-t border-dashed border-mirante-bronze/20">
+                    <h3 class="font-editorial text-base font-bold uppercase tracking-[0.14em] text-mirante-espresso flex items-center gap-1.5">
+                        <span class="text-mirante-gold text-xs">✦</span>
+                        <span>Frios</span>
+                    </h3>
+                    <p class="text-mirante-muted leading-relaxed mt-1">
+                        Presunto, Peito de Peru, Salaminho e Tender com melado.
+                    </p>
+                </div>
+
+                <div class="pt-3.5 border-t border-dashed border-mirante-bronze/20">
+                    <h3 class="font-editorial text-base font-bold uppercase tracking-[0.14em] text-mirante-espresso flex items-center gap-1.5">
+                        <span class="text-mirante-gold text-xs">✦</span>
+                        <span>Acompanhamentos</span>
+                    </h3>
+                    <p class="text-mirante-muted leading-relaxed mt-1">
+                        Geleias variadas, Duo de Pastinhas (ricota e frango), Caponata de Berinjela, Azeitonas Verdes marinadas, Torradinhas de Ciabatta, Uvas (verdes e roxas) e Abacaxi Assado com Ameixa.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ENTRADAS & SALGADOS -->
+        <section id="entradas" class="menu-anchor reveal-section rustic-card bg-white/85 backdrop-blur-[2px] rounded-2xl p-6 sm:p-7 shadow-[0_6px_24px_-8px_rgba(54,46,42,0.08)]">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <div class="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-mirante-bronze">
+                        <span>✦</span>
+                        <span>02 • Sabor da Casa</span>
+                    </div>
+                    <h2 class="font-display text-2xl sm:text-[26px] font-semibold text-mirante-espresso mt-0.5 leading-snug">
+                        Entradas &amp; Salgados
+                    </h2>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-mirante-linen border border-mirante-gold/30 text-mirante-bronze flex items-center justify-center shrink-0">
+                    <i data-lucide="flame" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <div class="gold-rule h-px w-full bg-gradient-to-r from-mirante-gold/70 via-mirante-bronze/30 to-transparent my-4"></div>
+
+            <ul class="divide-y divide-dashed divide-mirante-bronze/20 text-sm">
+                <li class="py-2.5 first:pt-0 last:pb-0 flex items-center gap-2.5 text-mirante-deep font-medium">
+                    <span class="text-mirante-gold text-xs shrink-0">✦</span>
+                    <span>Trem Mineiro</span>
+                </li>
+                <li class="py-2.5 first:pt-0 last:pb-0 flex items-center gap-2.5 text-mirante-deep font-medium">
+                    <span class="text-mirante-gold text-xs shrink-0">✦</span>
+                    <span>Bolinho Cervejeiro com mostarda escura</span>
+                </li>
+                <li class="py-2.5 first:pt-0 last:pb-0 flex items-center gap-2.5 text-mirante-deep font-medium">
+                    <span class="text-mirante-gold text-xs shrink-0">✦</span>
+                    <span>Croquete de Costela</span>
+                </li>
+                <li class="py-2.5 first:pt-0 last:pb-0 flex items-center gap-2.5 text-mirante-deep font-medium">
+                    <span class="text-mirante-gold text-xs shrink-0">✦</span>
+                    <span>Isca de Frango com molho Barbecue</span>
+                </li>
+                <li class="py-2.5 first:pt-0 last:pb-0 flex items-center gap-2.5 text-mirante-deep font-medium">
+                    <span class="text-mirante-gold text-xs shrink-0">✦</span>
+                    <span>Pastel Mineirinho</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 3. ESTAÇÃO DE MASSAS -->
+        <section id="massas" class="menu-anchor reveal-section rustic-card bg-white/85 backdrop-blur-[2px] rounded-2xl p-6 sm:p-7 shadow-[0_6px_24px_-8px_rgba(54,46,42,0.08)]">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <div class="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-mirante-bronze">
+                        <span>✦</span>
+                        <span>03 • Preparo Especial</span>
+                    </div>
+                    <h2 class="font-display text-2xl sm:text-[26px] font-semibold text-mirante-espresso mt-0.5 leading-snug">
+                        Estação de Massas
+                    </h2>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-mirante-linen border border-mirante-gold/30 text-mirante-bronze flex items-center justify-center shrink-0">
+                    <i data-lucide="chef-hat" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <div class="gold-rule h-px w-full bg-gradient-to-r from-mirante-gold/70 via-mirante-bronze/30 to-transparent my-4"></div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <div class="p-4 rounded-xl bg-mirante-paper/90 border border-mirante-bronze/20">
+                    <div class="flex items-center gap-2 font-semibold text-mirante-espresso">
+                        <span class="text-mirante-gold text-xs">✦</span>
+                        <span>Spaghetti à Bolonhesa</span>
+                    </div>
+                    <p class="font-editorial italic text-sm text-mirante-muted mt-1 pl-4">
+                        Molho clássico artesanal encorpado
+                    </p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-mirante-paper/90 border border-mirante-bronze/20">
+                    <div class="flex items-center gap-2 font-semibold text-mirante-espresso">
+                        <span class="text-mirante-gold text-xs">✦</span>
+                        <span>Penne ao Molho Branco</span>
+                    </div>
+                    <p class="font-editorial italic text-sm text-mirante-muted mt-1 pl-4">
+                        Textura cremosa e delicada
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. CEIA COMPLETA -->
+        <section id="ceia" class="menu-anchor reveal-section rustic-card bg-white/85 backdrop-blur-[2px] rounded-2xl p-6 sm:p-7 shadow-[0_6px_24px_-8px_rgba(54,46,42,0.08)]">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <div class="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-mirante-bronze">
+                        <span>✦</span>
+                        <span>04 • Pratos Principais</span>
+                    </div>
+                    <h2 class="font-display text-2xl sm:text-[26px] font-semibold text-mirante-espresso mt-0.5 leading-snug">
+                        Ceia Completa
+                    </h2>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-mirante-espresso border border-mirante-gold/40 text-mirante-goldLight flex items-center justify-center shrink-0">
+                    <i data-lucide="utensils-crossed" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <div class="gold-rule h-px w-full bg-gradient-to-r from-mirante-gold/70 via-mirante-bronze/30 to-transparent my-4"></div>
+
+            <div class="space-y-4 text-sm">
+                <div>
+                    <h3 class="font-editorial text-base font-bold uppercase tracking-[0.14em] text-mirante-espresso mb-2.5">
+                        Carnes &amp; Assados
+                    </h3>
+                    <ul class="space-y-2.5 text-mirante-deep">
+                        <li class="flex items-start gap-2.5">
+                            <span class="text-mirante-gold text-xs mt-0.5 shrink-0">✦</span>
+                            <span><strong class="font-semibold text-mirante-espresso">Filé de Tilápia</strong> com molho de alcaparras</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="text-mirante-gold text-xs mt-0.5 shrink-0">✦</span>
+                            <span><strong class="font-semibold text-mirante-espresso">Porchetta</strong> com salsa verde</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="text-mirante-gold text-xs mt-0.5 shrink-0">✦</span>
+                            <span><strong class="font-semibold text-mirante-espresso">Kafta na brasa</strong> com molho Tzatziki</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pt-4 border-t border-dashed border-mirante-bronze/20">
+                    <h3 class="font-editorial text-base font-bold uppercase tracking-[0.14em] text-mirante-espresso mb-2.5">
+                        Acompanhamentos &amp; Saladas
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-mirante-paper border border-mirante-bronze/20 text-xs font-medium text-mirante-espresso">
+                            Arroz Mjadra (com lentilhas)
+                        </span>
+                        <span class="px-3 py-1.5 rounded-lg bg-mirante-paper border border-mirante-bronze/20 text-xs font-medium text-mirante-espresso">
+                            Arroz Branco
+                        </span>
+                        <span class="px-3 py-1.5 rounded-lg bg-mirante-paper border border-mirante-bronze/20 text-xs font-medium text-mirante-espresso">
+                            Mousseline de Batatas
+                        </span>
+                        <span class="px-3 py-1.5 rounded-lg bg-mirante-paper border border-mirante-bronze/20 text-xs font-medium text-mirante-espresso">
+                            Brócolis salteado com alho frito
+                        </span>
+                        <span class="px-3 py-1.5 rounded-lg bg-mirante-paper border border-mirante-bronze/20 text-xs font-medium text-mirante-espresso">
+                            Farofa da Casa
+                        </span>
+                        <span class="px-3 py-1.5 rounded-lg bg-mirante-paper border border-mirante-bronze/20 text-xs font-medium text-mirante-espresso">
+                            Salada Mix de folhas
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. MENU KIDS -->
+        <section id="kids" class="menu-anchor reveal-section rustic-card bg-white/85 backdrop-blur-[2px] rounded-2xl p-6 sm:p-7 shadow-[0_6px_24px_-8px_rgba(54,46,42,0.08)]">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <div class="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-mirante-bronze">
+                        <span>✦</span>
+                        <span>05 • Para os Pequenos</span>
+                    </div>
+                    <h2 class="font-display text-2xl sm:text-[26px] font-semibold text-mirante-espresso mt-0.5 leading-snug">
+                        Menu Kids
+                    </h2>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-mirante-linen border border-mirante-gold/30 text-mirante-bronze flex items-center justify-center shrink-0">
+                    <i data-lucide="star" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <div class="gold-rule h-px w-full bg-gradient-to-r from-mirante-gold/70 via-mirante-bronze/30 to-transparent my-4"></div>
+
+            <ul class="divide-y divide-dashed divide-mirante-bronze/20 text-sm">
+                <li class="py-2.5 first:pt-0 last:pb-0 flex items-center gap-2.5 text-mirante-deep font-medium">
+                    <span class="text-mirante-gold text-xs shrink-0">✦</span>
+                    <span>Mini X-Burguer</span>
+                </li>
+                <li class="py-2.5 first:pt-0 last:pb-0 flex items-center gap-2.5 text-mirante-deep font-medium">
+                    <span class="text-mirante-gold text-xs shrink-0">✦</span>
+                    <span>Batata Frita com mussarela e ketchup</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 6. SOBREMESAS -->
+        <section id="sobremesas" class="menu-anchor reveal-section rustic-card bg-white/85 backdrop-blur-[2px] rounded-2xl p-6 sm:p-7 shadow-[0_6px_24px_-8px_rgba(54,46,42,0.08)]">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <div class="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-mirante-bronze">
+                        <span>✦</span>
+                        <span>06 • Doce Virada</span>
+                    </div>
+                    <h2 class="font-display text-2xl sm:text-[26px] font-semibold text-mirante-espresso mt-0.5 leading-snug">
+                        Sobremesas
+                    </h2>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-mirante-linen border border-mirante-gold/30 text-mirante-bronze flex items-center justify-center shrink-0">
+                    <i data-lucide="cake-slice" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <div class="gold-rule h-px w-full bg-gradient-to-r from-mirante-gold/70 via-mirante-bronze/30 to-transparent my-4"></div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+                <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-mirante-paper/90 border border-mirante-bronze/20 text-mirante-deep font-medium">
+                    <span class="text-mirante-gold text-xs shrink-0">✦</span>
+                    <span>Churros recheado</span>
+                </div>
+                <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-mirante-paper/90 border border-mirante-bronze/20 text-mirante-deep font-medium">
+                    <span class="text-mirante-gold text-xs shrink-0">✦</span>
+                    <span>Brigadeiro de colher</span>
+                </div>
+                <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-mirante-paper/90 border border-mirante-bronze/20 text-mirante-deep font-medium">
+                    <span class="text-mirante-gold text-xs shrink-0">✦</span>
+                    <span>Pudim de leite</span>
+                </div>
+                <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-mirante-paper/90 border border-mirante-bronze/20 text-mirante-deep font-medium">
+                    <span class="text-mirante-gold text-xs shrink-0">✦</span>
+                    <span>Sorvete Cervejeiro</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. BEBIDAS LIBERADAS (OPEN BAR) - CARD DE DESTAQUE ESCURO (#362E2A) -->
+        <section id="openbar" class="menu-anchor reveal-section openbar-card relative overflow-hidden bg-mirante-espresso text-mirante-paper rounded-2xl p-6 sm:p-7">
+            <!-- Brilho dourado sutil no fundo escuro -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(200,155,84,0.18),_transparent_62%)] pointer-events-none"></div>
+
+            <div class="relative">
+                <div class="flex items-start justify-between gap-3">
+                    <div>
+                        <div class="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-mirante-goldLight">
+                            <span>✦</span>
+                            <span>07 • Open Bar Completo</span>
+                        </div>
+                        <h2 class="font-display text-2xl sm:text-[26px] font-semibold text-mirante-paper mt-0.5 leading-snug">
+                            Bebidas Liberadas
+                        </h2>
+                    </div>
+                    <div class="w-10 h-10 rounded-xl bg-mirante-deep/80 border border-mirante-gold/40 text-mirante-goldLight flex items-center justify-center shrink-0">
+                        <i data-lucide="wine" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <div class="gold-rule h-px w-full bg-gradient-to-r from-mirante-gold via-mirante-gold/30 to-transparent my-4"></div>
+
+                <div class="space-y-4 text-sm">
+                    <!-- Chopes Cervejaria -->
+                    <div>
+                        <h3 class="font-editorial text-base font-bold uppercase tracking-[0.15em] text-mirante-goldLight flex items-center gap-1.5">
+                            <span class="text-mirante-gold text-xs">✦</span>
+                            <span>Chopes Cervejaria</span>
+                        </h3>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="px-3 py-1 rounded-full bg-mirante-deep/75 border border-mirante-gold/30 text-xs font-medium text-mirante-paper">
+                                Pilsen
+                            </span>
+                            <span class="px-3 py-1 rounded-full bg-mirante-deep/75 border border-mirante-gold/30 text-xs font-medium text-mirante-paper">
+                                Red
+                            </span>
+                            <span class="px-3 py-1 rounded-full bg-mirante-deep/75 border border-mirante-gold/30 text-xs font-medium text-mirante-paper">
+                                IPA
+                            </span>
+                            <span class="px-3 py-1 rounded-full bg-mirante-deep/75 border border-mirante-gold/30 text-xs font-medium text-mirante-paper">
+                                Vienna
+                            </span>
+                            <span class="px-3 py-1 rounded-full bg-mirante-deep/75 border border-mirante-gold/30 text-xs font-medium text-mirante-paper">
+                                Chope de Vinho
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Drinks -->
+                    <div class="pt-3.5 border-t border-mirante-gold/20">
+                        <h3 class="font-editorial text-base font-bold uppercase tracking-[0.15em] text-mirante-goldLight flex items-center gap-1.5">
+                            <span class="text-mirante-gold text-xs">✦</span>
+                            <span>Drinks</span>
+                        </h3>
+                        <p class="text-mirante-paper/90 leading-relaxed mt-1">
+                            Caipirinha de Limão, Caipiríssima (limão, morango e abacaxi) e Mojito.
+                        </p>
+                    </div>
+
+                    <!-- Brinde da Virada -->
+                    <div class="pt-3.5 border-t border-mirante-gold/20">
+                        <h3 class="font-editorial text-base font-bold uppercase tracking-[0.15em] text-mirante-goldLight flex items-center gap-1.5">
+                            <span class="text-mirante-gold text-xs">✦</span>
+                            <span>Brinde da Virada</span>
+                        </h3>
+                        <p class="text-mirante-paper/95 font-medium leading-relaxed mt-1">
+                            Espumante Garibaldi para celebrar a chegada de 2027.
+                        </p>
+                    </div>
+
+                    <!-- Não Alcoólicos -->
+                    <div class="pt-3.5 border-t border-mirante-gold/20">
+                        <h3 class="font-editorial text-base font-bold uppercase tracking-[0.15em] text-mirante-goldLight flex items-center gap-1.5">
+                            <span class="text-mirante-gold text-xs">✦</span>
+                            <span>Não Alcoólicos</span>
+                        </h3>
+                        <p class="text-mirante-paper/85 leading-relaxed mt-1">
+                            Drinks sem álcool, Sucos Tial (uva, pêssego e manga), Refrigerantes (Coca-Cola e Guaraná – tradicional e zero), Água mineral e Água com gás.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== RODAPÉ MINIMALISTA ELEGANTE ==================== -->
+    <footer class="bg-mirante-espresso text-mirante-paper mt-10 border-t border-mirante-gold/35">
+        <div class="max-w-xl mx-auto px-5 py-9 text-center">
+            <div class="flex items-center justify-center gap-3 mb-3">
+                <span class="h-px w-10 bg-gradient-to-r from-transparent to-mirante-gold/70"></span>
+                <span class="text-mirante-goldLight text-xs">✦</span>
+                <span class="h-px w-10 bg-gradient-to-l from-transparent to-mirante-gold/70"></span>
+            </div>
+
+            <p class="font-editorial italic text-xl text-mirante-goldLight">
+                Uma virada inesquecível espera por você
+            </p>
+
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-mirante-paper/85 mt-2">
+                Casa Mirante <span class="text-mirante-gold mx-1">•</span> Réveillon 2027
+            </p>
+        </div>
+    </footer>
+
+    <!-- ==================== SCRIPTS: ÍCONES, SCROLL REVEAL & SCROLL-SPY ==================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Processador Canvas Offscreen para Logo Transparente (#F7F4EE) + Favicon Quadrado (#362E2A)
+            const logoImg = document.getElementById('mirante-logo-img');
+
+            function processLogoAndFavicon() {
+                if (!logoImg || !logoImg.naturalWidth || logoImg.dataset.processed === 'true') return;
+
+                try {
+                    const w = logoImg.naturalWidth;
+                    const h = logoImg.naturalHeight;
+
+                    // Canvas 1: Converte fundo branco em transparência e traços escuros em creme #F7F4EE
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(logoImg, 0, 0, w, h);
+
+                    const imgData = ctx.getImageData(0, 0, w, h);
+                    const data = imgData.data;
+
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i];
+                        const g = data[i + 1];
+                        const b = data[i + 2];
+                        const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+
+                        // Mapeamento suave anti-serrilhado: branco (>=244) vira alpha 0; preto (<=55) vira alpha 255
+                        const alpha = Math.max(0, Math.min(255, Math.round((244 - lum) * (255 / 189))));
+
+                        data[i] = 247;     // R (#F7F4EE)
+                        data[i + 1] = 244; // G (#F7F4EE)
+                        data[i + 2] = 238; // B (#F7F4EE)
+                        data[i + 3] = alpha;
+                    }
+
+                    ctx.putImageData(imgData, 0, 0);
+                    const transparentLogoUrl = canvas.toDataURL('image/png');
+
+                    // Atualiza a logo na página para PNG transparente real
+                    logoImg.dataset.processed = 'true';
+                    logoImg.src = transparentLogoUrl;
+                    logoImg.classList.remove('mirante-logo-blend');
+                    logoImg.classList.add('mirante-logo-clean');
+
+                    // Canvas 2: Gera Favicon quadrado 180x180 (#362E2A + logo creme centralizada)
+                    const favSize = 180;
+                    const favCanvas = document.createElement('canvas');
+                    favCanvas.width = favSize;
+                    favCanvas.height = favSize;
+                    const fCtx = favCanvas.getContext('2d');
+
+                    // Fundo marrom espresso oficial
+                    fCtx.fillStyle = '#362E2A';
+                    fCtx.fillRect(0, 0, favSize, favSize);
+
+                    // Moldura sutil dourada interna no ícone
+                    fCtx.strokeStyle = 'rgba(200, 155, 84, 0.55)';
+                    fCtx.lineWidth = 4;
+                    fCtx.strokeRect(8, 8, favSize - 16, favSize - 16);
+
+                    // Desenha a logo creme proporcionalmente centralizada com margem confortável
+                    const padding = 24;
+                    const maxDim = favSize - padding * 2;
+                    const scale = Math.min(maxDim / w, maxDim / h);
+                    const drawW = w * scale;
+                    const drawH = h * scale;
+                    const drawX = (favSize - drawW) / 2;
+                    const drawY = (favSize - drawH) / 2;
+
+                    fCtx.drawImage(canvas, drawX, drawY, drawW, drawH);
+
+                    const faviconUrl = favCanvas.toDataURL('image/png');
+                    const faviconLink = document.getElementById('dynamic-favicon');
+                    const appleIconLink = document.getElementById('dynamic-apple-icon');
+
+                    if (faviconLink) {
+                        faviconLink.type = 'image/png';
+                        faviconLink.href = faviconUrl;
+                    }
+                    if (appleIconLink) {
+                        appleIconLink.href = faviconUrl;
+                    }
+                } catch (err) {
+                    // Em protocolo file://, o navegador bloqueia leitura de pixels do Canvas por segurança;
+                    // nesse caso, o fallback CSS (.mirante-logo-wrapper + .mirante-logo-blend) mantém o recorte perfeito.
+                }
+            }
+
+            if (logoImg) {
+                if (logoImg.complete) {
+                    processLogoAndFavicon();
+                } else {
+                    logoImg.addEventListener('load', processLogoAndFavicon);
+                }
+            }
+
+            // 2. Inicializa os ícones Lucide
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+
+            const sections = document.querySelectorAll('.menu-anchor');
+            const navPills = document.querySelectorAll('.nav-pill');
+            const tabsContainer = document.getElementById('sticky-tabs');
+
+            // Função para atualizar visualmente a aba ativa e centralizá-la no menu horizontal
+            function setActiveTab(sectionId) {
+                navPills.forEach((pill) => {
+                    const isMatch = pill.getAttribute('data-target') === sectionId;
+                    if (isMatch) {
+                        pill.classList.add('active', 'bg-mirante-espresso', 'text-mirante-goldLight', 'font-semibold', 'border-mirante-gold/40', 'shadow-sm');
+                        pill.classList.remove('bg-mirante-linen/80', 'text-mirante-espresso', 'font-medium', 'border-transparent');
+
+                        // Centraliza suavemente a aba ativa na barra horizontal mobile
+                        if (tabsContainer) {
+                            const scrollLeft = pill.offsetLeft - (tabsContainer.offsetWidth / 2) + (pill.offsetWidth / 2);
+                            tabsContainer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                        }
+                    } else {
+                        pill.classList.remove('active', 'bg-mirante-espresso', 'text-mirante-goldLight', 'font-semibold', 'border-mirante-gold/40', 'shadow-sm');
+                        pill.classList.add('bg-mirante-linen/80', 'text-mirante-espresso', 'font-medium', 'border-transparent');
+                    }
+                });
+            }
+
+            // 2. Animação de Revelação ao Rolar (IntersectionObserver)
+            const revealObserver = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    threshold: 0.12,
+                    rootMargin: '0px 0px -30px 0px'
+                }
+            );
+
+            document.querySelectorAll('.reveal-section').forEach((sec) => {
+                revealObserver.observe(sec);
+            });
+
+            // 3. Scroll-Spy para destacar a categoria correspondente durante a rolagem
+            const spyObserver = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            setActiveTab(entry.target.id);
+                        }
+                    });
+                },
+                {
+                    rootMargin: '-22% 0px -65% 0px',
+                    threshold: 0
+                }
+            );
+
+            sections.forEach((section) => {
+                spyObserver.observe(section);
+            });
+
+            // 4. Clique nas abas com feedback imediato e rolagem suave
+            navPills.forEach((pill) => {
+                pill.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = pill.getAttribute('data-target');
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        setActiveTab(targetId);
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
